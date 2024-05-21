@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bo2pgbn5yfpqn"]
+
+[ext_resource type="Shader" path="res://Assets/dark_outline.gdshader" id="1_1kcqk"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_1kcqk")
+shader_parameter/shadow_color = Color(0.000113828, 0.000113828, 0.000113828, 1)
+shader_parameter/shadow_thickness = 1.4

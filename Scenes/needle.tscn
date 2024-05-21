@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbflpxxdx6in5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_heo10"]
+size = Vector3(0.684814, 1, 0.0844727)
+
+[sub_resource type="BoxMesh" id="BoxMesh_582le"]
+
+[node name="Needle" type="RigidBody3D"]
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.1184, 0, 0, 0, 0.0978162, 0, 0, 0, 1, 0.00183105, 0, 0.00317383)
+shape = SubResource("BoxShape3D_heo10")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.766102, 0, 0, 0, 0.084967, 0, 0, 0, 0.0915103, 0, 0, 0)
+mesh = SubResource("BoxMesh_582le")

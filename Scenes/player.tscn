@@ -1,0 +1,69 @@
+[gd_scene load_steps=10 format=3 uid="uid://coqf3x1sqq43p"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_tpnkj"]
+[ext_resource type="Theme" uid="uid://cnbpi6dax4ijf" path="res://Assets/Theme.tres" id="2_lovhj"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_aqswj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s3uyt"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5ybj8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ksx2p"]
+bg_color = Color(0.214103, 0.214103, 0.214103, 1)
+shadow_size = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8bqa8"]
+bg_color = Color(0.994067, 0.347005, 0.316722, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_01u6t"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lukmo"]
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_tpnkj")
+
+[node name="Model" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.02091, 0, 0, 0, 1.02091, 0, 0, 0, 1.02091, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_aqswj")
+surface_material_override/0 = SubResource("StandardMaterial3D_s3uyt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_5ybj8")
+
+[node name="PlayerUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_lovhj")
+
+[node name="HealthBar" type="ProgressBar" parent="PlayerUI"]
+layout_mode = 0
+offset_left = 31.0
+offset_top = 1220.0
+offset_right = 789.0
+offset_bottom = 1261.0
+theme_override_styles/background = SubResource("StyleBoxFlat_ksx2p")
+theme_override_styles/fill = SubResource("StyleBoxFlat_8bqa8")
+value = 78.0
+
+[node name="Gun" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.100477, 0, 0, 0, 0.184008, 0, 0, 0, 1, -0.23706, 0.423811, 0.552685)
+mesh = SubResource("BoxMesh_01u6t")
+
+[node name="RayCast3D" type="RayCast3D" parent="Gun"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.45965)
+target_position = Vector3(2.08165e-12, 2.08165e-12, 30)
+collision_mask = 3
+debug_shape_custom_color = Color(1, 0, 0, 1)
+debug_shape_thickness = 5
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.217677, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000902176, 0, 1.51921)
+shape = SubResource("BoxShape3D_lukmo")

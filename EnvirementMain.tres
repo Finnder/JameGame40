@@ -1,0 +1,13 @@
+[gd_resource type="Environment" format=3 uid="uid://doda0n4koiot4"]
+
+[resource]
+background_mode = 1
+background_color = Color(0.477979, 0.403805, 0.323942, 1)
+glow_enabled = true
+glow_strength = 0.89
+glow_bloom = 0.05
+fog_enabled = true
+fog_light_color = Color(0.38542, 0.435319, 0.323886, 1)
+adjustment_enabled = true
+adjustment_contrast = 1.59
+adjustment_saturation = 1.29

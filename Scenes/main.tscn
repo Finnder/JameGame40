@@ -1,0 +1,93 @@
+[gd_scene load_steps=14 format=3 uid="uid://cw6leajwti15b"]
+
+[ext_resource type="PackedScene" uid="uid://coqf3x1sqq43p" path="res://Scenes/player.tscn" id="1_h7k5y"]
+[ext_resource type="Texture2D" uid="uid://b0w3vmpuhn7a5" path="res://addons/godot-prototype-texture/PNG/checker_black_512x512.png" id="2_6ra28"]
+[ext_resource type="Environment" uid="uid://doda0n4koiot4" path="res://EnvirementMain.tres" id="2_e4qjk"]
+[ext_resource type="Material" uid="uid://bo2pgbn5yfpqn" path="res://Assets/dark_outline.tres" id="3_04cst"]
+[ext_resource type="PackedScene" uid="uid://bbpudrw5b5fc" path="res://Scenes/pillar.tscn" id="4_qyojs"]
+[ext_resource type="Script" path="res://Scripts/Camera3D.gd" id="4_tlf0q"]
+[ext_resource type="Script" path="res://Scripts/RaycastHitFromCamManager.gd" id="5_xev1u"]
+[ext_resource type="PackedScene" uid="uid://dkorlhds8ru8h" path="res://Scenes/enemy.tscn" id="8_nclm2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xq1jc"]
+albedo_texture = ExtResource("2_6ra28")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_yc1ny"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h8iul"]
+albedo_color = Color(0.170659, 0.129852, 0.0617421, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uxjjf"]
+size = Vector3(1, 0.493652, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_vrn5b"]
+material = ExtResource("3_04cst")
+size = Vector2(20, 20)
+
+[node name="World" type="Node3D"]
+
+[node name="RayFromCam" type="Node3D" parent="."]
+script = ExtResource("5_xev1u")
+target_color = Color(1, 0.270588, 0.333333, 1)
+
+[node name="Ground" type="StaticBody3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 10.029, 0, 0, 0, 100, 0.00136924, -2.38419e-07, -0.00713992)
+collision_layer = 3
+collision_mask = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+material_override = SubResource("StandardMaterial3D_xq1jc")
+mesh = SubResource("PlaneMesh_yc1ny")
+surface_material_override/0 = SubResource("StandardMaterial3D_h8iul")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(10, 0, 0, 0, 0.1, 0, 0, 0, 10, 0, -0.0247692, 0)
+shape = SubResource("BoxShape3D_uxjjf")
+
+[node name="Player" parent="." instance=ExtResource("1_h7k5y")]
+transform = Transform3D(0.999755, 0, 0, 0, 0.999755, 0, 0, 0, 0.999755, 2.08165e-12, 0.88, 2.56721)
+speed = 10.0
+needle_speed = 70.0
+max_needle_speed = 200.0
+speed_increase_rate = 50.0
+fire_rate = 0.5
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, -5.43826e-16, 2.89158e-16, 2.89157e-16, 0.829038, 0.559193, -5.43826e-16, -0.559193, 0.829038, 2.08165e-12, 10, 9.494)
+keep_aspect = 0
+environment = ExtResource("2_e4qjk")
+projection = 1
+current = true
+fov = 37.8493
+size = 28.882
+near = 0.002
+script = ExtResource("4_tlf0q")
+
+[node name="MaterialMeshFilter" type="MeshInstance3D" parent="Camera3D"]
+transform = Transform3D(1.82198, 0, 0, 0, 1, -2.33673e-09, 0, 8.065e-09, 1, 0, -0.0136781, -0.677597)
+mesh = SubResource("QuadMesh_vrn5b")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, -6.97574e-16, -1.5246e-23, -1.5246e-23, -4.37114e-08, 1, -6.97574e-16, -1, -4.37114e-08, 0, 3.29694, 0)
+shadow_enabled = true
+
+[node name="EnemySpawnLocations" type="Node3D" parent="."]
+
+[node name="EnemySpawnManager" type="Node" parent="."]
+
+[node name="Enemies" type="Node" parent="EnemySpawnManager"]
+
+[node name="Enemy" parent="EnemySpawnManager/Enemies" instance=ExtResource("8_nclm2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.99604, -0.000868589, 13.6496)
+move_speed = 0.3
+
+[node name="Enemy2" parent="EnemySpawnManager/Enemies" instance=ExtResource("8_nclm2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.2938, -0.000868589, -1.57188)
+
+[node name="Enemy3" parent="EnemySpawnManager/Enemies" instance=ExtResource("8_nclm2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.8916, -0.000868589, 7.52006)
+
+[node name="PillarSpawnManager" type="Node" parent="."]
+
+[node name="Pillar" parent="PillarSpawnManager" instance=ExtResource("4_qyojs")]
+transform = Transform3D(0.891007, -4.69117e-16, -0.453991, 3.48787e-16, 1, -3.48787e-16, 0.453991, 1.52425e-16, 0.891007, 2.08165e-12, 0.359, -10.66)

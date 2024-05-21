@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cnbpi6dax4ijf"]
+
+[ext_resource type="FontFile" uid="uid://erdgllynwqkw" path="res://Assets/Roboto-Bold.ttf" id="1_8d2n6"]
+
+[resource]
+default_font = ExtResource("1_8d2n6")
+Button/font_sizes/font_size = 30
+Label/font_sizes/font_size = 50
+ProgressBar/font_sizes/font_size = 30
