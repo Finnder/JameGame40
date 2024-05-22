@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://cylown8xxmvj8"]
+
+[ext_resource type="Theme" uid="uid://cnbpi6dax4ijf" path="res://Assets/Theme.tres" id="1_nnvh0"]
+
+[node name="Settings" type="VBoxContainer"]
+custom_minimum_size = Vector2(700, 2.08165e-12)
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -2992.0
+offset_top = 1.0
+offset_right = -2292.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="BeginButton" type="Button" parent="."]
+custom_minimum_size = Vector2(2.08165e-12, 60)
+layout_mode = 2
+theme = ExtResource("1_nnvh0")
+text = "Start"

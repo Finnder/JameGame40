@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://c0424b852h4vo"]
+[gd_scene load_steps=4 format=3 uid="uid://c0424b852h4vo"]
 
 [ext_resource type="Theme" uid="uid://cnbpi6dax4ijf" path="res://Assets/Theme.tres" id="1_0r4wd"]
+[ext_resource type="Script" path="res://Scripts/menu.gd" id="2_g6wns"]
+[ext_resource type="Script" path="res://Scripts/Camera2DMove.gd" id="3_j0dmf"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -10,20 +12,118 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_0r4wd")
+script = ExtResource("2_g6wns")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-custom_minimum_size = Vector2(500, 2.08165e-12)
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(2500, 1500)
+layout_mode = 0
+offset_left = -2509.0
+offset_top = 14.0
+offset_right = -9.0
+offset_bottom = 1514.0
+
+[node name="Panel2" type="Panel" parent="."]
+custom_minimum_size = Vector2(2500, 1500)
+layout_mode = 0
+offset_left = 3.0
+offset_top = 18.0
+offset_right = 2503.0
+offset_bottom = 1518.0
+
+[node name="Panel3" type="Panel" parent="."]
+custom_minimum_size = Vector2(2500, 1500)
+layout_mode = 0
+offset_left = 2516.0
+offset_top = 14.0
+offset_right = 5016.0
+offset_bottom = 1514.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(254, 750)
+offset = Vector2(1000, 2.08165e-12)
+position_smoothing_enabled = true
+script = ExtResource("3_j0dmf")
+achievements_x_pos = 2760
+settings_x_pos = -2252
+
+[node name="Main" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(700, 2.08165e-12)
 layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
+offset_left = 38.0
+offset_top = 1.0
+offset_right = 738.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 25
 alignment = 1
 
-[node name="Button" type="Button" parent="VBoxContainer"]
+[node name="BeginButton" type="Button" parent="Main"]
 custom_minimum_size = Vector2(2.08165e-12, 60)
 layout_mode = 2
 theme = ExtResource("1_0r4wd")
-text = "Hello"
+text = "Start"
+
+[node name="AchievementsButton" type="Button" parent="Main"]
+custom_minimum_size = Vector2(2.08165e-12, 60)
+layout_mode = 2
+theme = ExtResource("1_0r4wd")
+text = "Achievements"
+
+[node name="SettingsButton" type="Button" parent="Main"]
+custom_minimum_size = Vector2(2.08165e-12, 60)
+layout_mode = 2
+theme = ExtResource("1_0r4wd")
+text = "Settings"
+
+[node name="ExitButton" type="Button" parent="Main"]
+custom_minimum_size = Vector2(2.08165e-12, 60)
+layout_mode = 2
+theme = ExtResource("1_0r4wd")
+text = "Quit"
+
+[node name="Achievements" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 2280.0
+offset_top = 464.0
+offset_right = 2880.0
+offset_bottom = -988.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="Achievements"]
+layout_mode = 2
+text = "yo"
+
+[node name="Settings" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(700, 2.08165e-12)
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -3026.0
+offset_top = 1.0
+offset_right = -2326.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="Button" type="Button" parent="Settings"]
+layout_mode = 2
+text = "yo"
+
+[connection signal="pressed" from="Main/BeginButton" to="." method="_on_begin_button_pressed"]
+[connection signal="pressed" from="Main/AchievementsButton" to="." method="_on_achievements_button_pressed"]
+[connection signal="pressed" from="Main/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Main/ExitButton" to="." method="_on_exit_button_pressed"]

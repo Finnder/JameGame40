@@ -12,6 +12,7 @@ func _input(event):
 
 # Function to handle mouse click
 func handle_mouse_click(mouse_position: Vector2):
+	
 	var from = camera.project_ray_origin(mouse_position)
 	var to = from + camera.project_ray_normal(mouse_position) * 1000
 	
