@@ -8,7 +8,7 @@ var fixed_height: float  # Fixed Y position for the orthographic camera
 func _ready():
 	fixed_height = global_transform.origin.y  # Initialize fixed height to current camera height
 
-func _process(delta):
+func _process(_delta):
 	if player:
 		# Calculate the new position using a spring-like smoothing method
 		var target_position = player.global_transform.origin

@@ -3,13 +3,6 @@ extends Node3D
 @onready var camera : Camera3D = $"../Camera3D"
 @export var target_color : Color = Color(1, 1, 1)
 
-# Function to handle input events
-func _input(event):
-	pass
-	#if event is InputEventMouseButton and event.pressed:
-		#if event.button_index == MOUSE_BUTTON_LEFT:
-			#handle_mouse_click(event.position)
-
 # Function to handle mouse click
 func handle_mouse_click(mouse_position: Vector2):
 	

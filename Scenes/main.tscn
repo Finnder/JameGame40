@@ -1,22 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://cw6leajwti15b"]
+[gd_scene load_steps=11 format=3 uid="uid://cw6leajwti15b"]
 
 [ext_resource type="PackedScene" uid="uid://coqf3x1sqq43p" path="res://Scenes/player.tscn" id="1_h7k5y"]
-[ext_resource type="Texture2D" uid="uid://b0w3vmpuhn7a5" path="res://addons/godot-prototype-texture/PNG/checker_black_512x512.png" id="2_6ra28"]
+[ext_resource type="PackedScene" uid="uid://bkupr42o1mbgh" path="res://Scenes/ground.tscn" id="2_8l6ct"]
 [ext_resource type="Environment" uid="uid://doda0n4koiot4" path="res://EnvirementMain.tres" id="2_e4qjk"]
 [ext_resource type="Material" uid="uid://bo2pgbn5yfpqn" path="res://Assets/dark_outline.tres" id="3_04cst"]
 [ext_resource type="PackedScene" uid="uid://bbpudrw5b5fc" path="res://Scenes/pillar.tscn" id="4_qyojs"]
 [ext_resource type="Script" path="res://Scripts/Camera3D.gd" id="4_tlf0q"]
 [ext_resource type="Script" path="res://Scripts/RaycastHitFromCamManager.gd" id="5_xev1u"]
 [ext_resource type="PackedScene" uid="uid://dkorlhds8ru8h" path="res://Scenes/enemy.tscn" id="8_nclm2"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xq1jc"]
-albedo_texture = ExtResource("2_6ra28")
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_yc1ny"]
-size = Vector2(3, 3)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h8iul"]
-albedo_color = Color(0.170659, 0.129852, 0.0617421, 1)
+[ext_resource type="PackedScene" uid="uid://i7ptlltwavl1" path="res://Scenes/Props/wall_prop.tscn" id="9_tl1tb"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_vrn5b"]
 material = ExtResource("3_04cst")
@@ -28,20 +20,12 @@ size = Vector2(20, 20)
 script = ExtResource("5_xev1u")
 target_color = Color(1, 0.270588, 0.333333, 1)
 
-[node name="Ground" type="StaticBody3D" parent="."]
-transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0.00136924, -2.38419e-07, -0.00713992)
-collision_layer = 3
-collision_mask = 3
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
-material_override = SubResource("StandardMaterial3D_xq1jc")
-mesh = SubResource("PlaneMesh_yc1ny")
-surface_material_override/0 = SubResource("StandardMaterial3D_h8iul")
+[node name="Ground" parent="." instance=ExtResource("2_8l6ct")]
 
 [node name="Player" parent="." instance=ExtResource("1_h7k5y")]
-transform = Transform3D(0.999755, 0, 0, 0, 0.999755, 0, 0, 0, 0.999755, 2.08165e-12, 0.88, 2.56721)
-dash_rate = 1.0
-dash_force = 1000.0
+transform = Transform3D(0.999755, 0, 0, 0, 0.999755, 0, 0, 0, 0.999755, 0.00152779, 0.862269, 2.5596)
+axis_lock_linear_y = true
+dash_force = 500.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, -5.43826e-16, 2.89158e-16, 2.89157e-16, 0.829038, 0.559193, -5.43826e-16, -0.559193, 0.829038, 2.08165e-12, 10, 9.494)
@@ -103,3 +87,27 @@ pillar_color = Color(0.944452, 0.529796, 0.209237, 1)
 [node name="Pillar7" parent="Pillars" instance=ExtResource("4_qyojs")]
 transform = Transform3D(0.891007, -4.69117e-16, -0.453991, 3.48787e-16, 1, -3.48787e-16, 0.453991, 1.52425e-16, 0.891007, 9.88925, 0.359002, 47.2844)
 pillar_color = Color(0.944452, 0.529796, 0.209237, 1)
+
+[node name="SpawnManager" type="Node3D" parent="."]
+
+[node name="spawn_loc_1" type="Node3D" parent="SpawnManager"]
+
+[node name="CollidableProps" type="Node3D" parent="."]
+
+[node name="WallProp" parent="CollidableProps" instance=ExtResource("9_tl1tb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.558928, 0)
+
+[node name="WallProp2" parent="CollidableProps" instance=ExtResource("9_tl1tb")]
+transform = Transform3D(0.577302, 0, -0.816531, 0, 1, 0, 0.816531, 0, 0.577302, 21.5522, 0.558928, 3.76518)
+
+[node name="WallProp3" parent="CollidableProps" instance=ExtResource("9_tl1tb")]
+transform = Transform3D(-0.748736, 0, -0.662868, 0, 1, 0, 0.662868, 0, -0.748736, -9.07054, 0.558928, 17.0706)
+
+[node name="WallProp4" parent="CollidableProps" instance=ExtResource("9_tl1tb")]
+transform = Transform3D(-0.748736, 0, -0.662868, 0, 1, 0, 0.662868, 0, -0.748736, -15.5064, 0.558928, 22.7265)
+
+[node name="WallProp5" parent="CollidableProps" instance=ExtResource("9_tl1tb")]
+transform = Transform3D(0.82269, 0, -0.56849, 0, 1, 0, 0.56849, 0, 0.82269, 4.66457, 0.558928, 26.3637)
+
+[node name="WallProp6" parent="CollidableProps" instance=ExtResource("9_tl1tb")]
+transform = Transform3D(0.82269, 0, -0.56849, 0, 1, 0, 0.56849, 0, 0.82269, 11.6954, 0.558928, 31.2603)

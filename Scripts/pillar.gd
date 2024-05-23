@@ -1,15 +1,17 @@
 extends StaticBody3D
 
 @onready var circle_notifier : MeshInstance3D = $CircleNotifier
-@onready var line_mesh_instance : MeshInstance3D = $LineMeshInstance
 @onready var player: CharacterBody3D = $"../../Player"
 
 @export var pillar_color : Color
+@export var pillar : Pillars
 
 var tween : Tween
 var can_click : bool = false
 var selected : bool = false
 var player_in_zone : bool = false
+
+var enemies_in_zone = {}
 
 @onready var sprite_circle = $CircleNotifier/Sprite3D
 
@@ -56,15 +58,23 @@ func _on_area_3d_body_entered(body):
 		circle_notifier.show()
 		select_doll()
 		player_in_zone = true
+		
+	if body.is_in_group("enemies"):
+		enemies_in_zone.merge({ body : body.name })
+		print(enemies_in_zone)
+		
 
 func _on_area_3d_body_exited(body):
 	if body.name == "Player":
-		print("player exited zone")
 		tween.stop()
 		tween.tween_property(circle_notifier.get_surface_override_material(0), "albedo_color:a", 0.0, 1)
 		circle_notifier.hide()
 		deselect_doll()
 		player_in_zone = false
+		
+	if body.is_in_group("enemies"):
+		if enemies_in_zone.has(body):
+			enemies_in_zone.erase(body)
 
 func change_material_transparency(material: StandardMaterial3D, duration: float, target: float):
 	if material is StandardMaterial3D:
@@ -72,7 +82,7 @@ func change_material_transparency(material: StandardMaterial3D, duration: float,
 	else:
 		print("Material is not a StandardMaterial3D or is invalid")
 
-func _process(delta):
+func _process(_delta):
 	if player_in_zone:
 		DebugDraw3D.draw_line(global_position, player.position, Color.WHITE)
 		

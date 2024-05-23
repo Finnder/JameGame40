@@ -1,4 +1,4 @@
-extends StaticBody3D
+extends CharacterBody3D
 
 @export var move_speed: float = 1.0  # Speed at which the object moves towards the player
 @export var max_health: int = 4
@@ -6,9 +6,11 @@ extends StaticBody3D
 @onready var health = max_health
 var player
 
+var in_pillar # ref to pillar
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	player = $"../../../Player"
+	player = $"../../Player"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://bkupr42o1mbgh"]
+
+[ext_resource type="Texture2D" uid="uid://b0w3vmpuhn7a5" path="res://addons/godot-prototype-texture/PNG/checker_black_512x512.png" id="1_4wjrg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xq1jc"]
+albedo_texture = ExtResource("1_4wjrg")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_yc1ny"]
+size = Vector2(3, 3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h8iul"]
+albedo_color = Color(0.170659, 0.129852, 0.0617421, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_447n4"]
+size = Vector3(5, 0.1, 5)
+
+[node name="Ground" type="StaticBody3D"]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0.00136924, -2.38419e-07, -0.00713992)
+collision_layer = 3
+collision_mask = 3
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_xq1jc")
+mesh = SubResource("PlaneMesh_yc1ny")
+surface_material_override/0 = SubResource("StandardMaterial3D_h8iul")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00841388, -0.0737983, 0.505615)
+shape = SubResource("BoxShape3D_447n4")

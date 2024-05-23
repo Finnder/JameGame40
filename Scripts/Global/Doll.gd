@@ -1,7 +1,0 @@
-extends Node
-
-enum BUFF_TYPE {
-	DAMAGE,
-	ATTACK_SPEED,
-	MOVE_SPEED
-}

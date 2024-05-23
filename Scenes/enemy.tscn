@@ -7,8 +7,9 @@
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ywox5"]
 height = 4.37457
 
-[node name="Enemy" type="StaticBody3D" groups=["enemies"]]
+[node name="Enemy" type="CharacterBody3D" groups=["enemies"]]
 script = ExtResource("1_axg6a")
+move_speed = 2.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.505906, 0)

@@ -1,7 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://coqf3x1sqq43p"]
+[gd_scene load_steps=16 format=3 uid="uid://coqf3x1sqq43p"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_tpnkj"]
 [ext_resource type="Theme" uid="uid://cnbpi6dax4ijf" path="res://Assets/Theme.tres" id="2_lovhj"]
+[ext_resource type="Texture2D" uid="uid://28l4x8tk3u12" path="res://addons/kenney_particle_pack/slash_01.png" id="3_raok7"]
+[ext_resource type="Script" path="res://Scripts/PlayerUIManager.gd" id="3_xmi7a"]
+[ext_resource type="PackedScene" uid="uid://drx1eaao2abed" path="res://Scenes/upgrade_button.tscn" id="4_ohqki"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_aqswj"]
 
@@ -14,23 +17,35 @@ bg_color = Color(0.214103, 0.214103, 0.214103, 1)
 shadow_size = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8bqa8"]
-bg_color = Color(0.994067, 0.347005, 0.316722, 1)
+bg_color = Color(0.849644, 0.0614676, 0.120263, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rnyx0"]
+bg_color = Color(0, 0, 0, 0.4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8k6ou"]
+bg_color = Color(0.329412, 0.133333, 0.309804, 0.733333)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+corner_detail = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_67npf"]
+font_size = 70
+outline_size = 2
+shadow_size = 2
+shadow_color = Color(0.624299, 0.216111, 0.411719, 1)
+shadow_offset = Vector2(2.08165e-12, 7)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lukmo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4qjuc"]
 size = Vector3(2.84265, 1, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tge4c"]
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ta1vb"]
-gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3wutb"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_dnsjb"]
-material = SubResource("StandardMaterial3D_3wutb")
-height = 0.1
 
 [node name="Player" type="CharacterBody3D"]
 input_ray_pickable = false
@@ -52,16 +67,83 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_lovhj")
+script = ExtResource("3_xmi7a")
 
 [node name="HealthBar" type="ProgressBar" parent="PlayerUI"]
 layout_mode = 0
-offset_left = 31.0
-offset_top = 1220.0
-offset_right = 789.0
-offset_bottom = 1261.0
+offset_left = 23.0
+offset_top = 1422.0
+offset_right = 781.0
+offset_bottom = 1463.0
 theme_override_styles/background = SubResource("StyleBoxFlat_ksx2p")
 theme_override_styles/fill = SubResource("StyleBoxFlat_8bqa8")
 value = 78.0
+
+[node name="Upgrades" type="Control" parent="PlayerUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="Panel" parent="PlayerUI/Upgrades"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rnyx0")
+
+[node name="UpgradesPanel" type="Panel" parent="PlayerUI/Upgrades"]
+custom_minimum_size = Vector2(1000, 800)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -500.0
+offset_top = -400.0
+offset_right = 500.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8k6ou")
+
+[node name="Label" type="Label" parent="PlayerUI/Upgrades/UpgradesPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 49.0
+offset_bottom = 132.0
+grow_horizontal = 2
+text = "Upgrades"
+label_settings = SubResource("LabelSettings_67npf")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="UpgradesVBoxContainer" type="VBoxContainer" parent="PlayerUI/Upgrades/UpgradesPanel"]
+custom_minimum_size = Vector2(900, 700)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -302.0
+offset_right = 450.0
+offset_bottom = 398.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="UpgradeButton" parent="PlayerUI/Upgrades/UpgradesPanel/UpgradesVBoxContainer" instance=ExtResource("4_ohqki")]
+layout_mode = 2
 
 [node name="InteractionArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.217677, -0.514524)
@@ -79,13 +161,17 @@ shape = SubResource("BoxShape3D_4qjuc")
 
 [node name="DashTrail" type="Node3D" parent="."]
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="DashTrail"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0916693)
-material_override = SubResource("StandardMaterial3D_tge4c")
-trail_enabled = true
-trail_lifetime = 0.2
-process_material = SubResource("ParticleProcessMaterial_ta1vb")
-draw_pass_1 = SubResource("CylinderMesh_dnsjb")
+[node name="AttackSprites" type="Node3D" parent="."]
+
+[node name="AttackSprite" type="Sprite3D" parent="AttackSprites"]
+transform = Transform3D(0.513735, 0, 0, 0, -0.0628253, 0.998025, 0, -0.998025, -0.0628253, 0, 0, 0.13897)
+modulate = Color(0.485936, 0.589472, 1, 1)
+texture = ExtResource("3_raok7")
+
+[node name="AttackSprite2" type="Sprite3D" parent="AttackSprites"]
+transform = Transform3D(0.513735, 0, 0, 0, -0.0628253, 0.998025, 0, -0.998025, -0.0628253, 0, 0, 0.722585)
+modulate = Color(0.694254, 0.765921, 1, 1)
+texture = ExtResource("3_raok7")
 
 [connection signal="body_entered" from="MeleeAttackArea" to="." method="_on_melee_attack_area_body_entered"]
 [connection signal="body_exited" from="MeleeAttackArea" to="." method="_on_melee_attack_area_body_exited"]
